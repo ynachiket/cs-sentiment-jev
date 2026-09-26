@@ -9,6 +9,7 @@
     "test:latency": "jest --testMatch='**/latency.test.ts' --verbose",
     "test:support": "jest --testMatch='**/support-comparison.test.ts' --verbose",
     "test:real-api": "ts-node src/test-real-api.ts",
+    "visualize": "ts-node src/visualize-latency.ts",
     "dev": "ts-node src/index.ts",
     "start": "node dist/index.js"
   },
