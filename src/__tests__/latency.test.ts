@@ -193,7 +193,8 @@ describe('Sentiment Analysis Latency Comparison', () => {
 
   describe('Head-to-Head Comparison', () => {
     test('should demonstrate Jev speed advantage across full conversation', async () => {
-      const jevAnalyzer = new JevSentimentAnalyzer(MOCK_API_KEY);
+      // Use mock mode for deterministic tests
+      const jevAnalyzer = new JevSentimentAnalyzer(MOCK_API_KEY, undefined, true);
       const llmAnalyzer = new LLMSentimentAnalyzer(MOCK_API_KEY, 'openai');
       
       const jevChatbot = new SentimentChatbot(jevAnalyzer);
