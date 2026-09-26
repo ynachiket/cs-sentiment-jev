@@ -45,6 +45,34 @@ npm run test:real-api
 
 **Tutorial**: See [OpenRouter Jev Tutorial](https://openrouter.ai/docs/guides/community/jev-tutorial) for details.
 
+## 🎯 Two Implementations Included
+
+### 1. Sentiment Analysis Speed Comparison
+Original implementation comparing Jev vs LLM for sentiment analysis speed.
+- **Test**: `npm run test:latency`
+- **Shows**: 61,000x speed advantage of Jev
+- **Purpose**: Prove Jev is faster for sentiment analysis
+
+### 2. Real Customer Support Chatbot (NEW!)
+Realistic chatbot showing Jev + LLM working together for proactive support.
+
+**WITHOUT Jev (Baseline - Reactive):**
+- LLM handles conversation
+- Only escalates when customer explicitly asks
+- Reactive support
+
+**WITH Jev (Enhanced - Proactive):**
+- LLM handles conversation (same quality)
+- Jev analyzes sentiment in real-time (186ms)
+- Automatically escalates frustrated customers
+- Proactive support
+
+**Test**: `npm run test:support`
+
+**Result**: Enhanced chatbot escalates **1 turn faster** - catches frustration before customer has to ask!
+
+📖 **Full explanation**: See [SUPPORT_FLOW.md](SUPPORT_FLOW.md) for detailed flow diagrams
+
 ## 📊 Key Results
 
 | Metric | Jev | Traditional LLM | Improvement |
@@ -170,6 +198,7 @@ npm run test:real-api
 |---------|-------------|----------|
 | `npm test` | Run all tests | Mock (default) |
 | `npm run test:latency` | Run latency comparison tests | Mock (default) |
+| `npm run test:support` | Run customer support chatbot comparison | Mock (default) |
 | `npm run test:real-api` | Test with real Jev API | Real (requires API key) |
 | `npm run build` | Build TypeScript | N/A |
 | `npm run dev` | Run interactive demo | Mock (default) |
@@ -181,10 +210,24 @@ npm run test:real-api
 npm test
 ```
 
-### Run Latency Comparison Tests Only
+### Run Latency Comparison Tests
+Compares Jev vs LLM for sentiment analysis speed:
 ```bash
 npm run test:latency
 ```
+
+### Run Customer Support Chatbot Tests (NEW!)
+Shows Jev + LLM working together for proactive support:
+```bash
+npm run test:support
+```
+
+**What it demonstrates:**
+- Baseline (LLM only): Reactive escalation (customer must ask)
+- Enhanced (LLM + Jev): Proactive escalation (auto-detects frustration)
+- Result: Enhanced escalates 1 turn faster
+
+See [SUPPORT_FLOW.md](SUPPORT_FLOW.md) for detailed explanation.
 
 The tests compare:
 - **Escalating frustration** scenarios (4 turns)

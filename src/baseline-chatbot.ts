@@ -139,8 +139,8 @@ export class BaselineSupportChatbot {
     
     const lowerMessage = message.toLowerCase();
 
-    // Simulate 2-3 second LLM response time
-    await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
+    // Simulate 3-5 second LLM response time (realistic for Claude/GPT)
+    await new Promise(resolve => setTimeout(resolve, 3000 + Math.random() * 2000));
 
     if (lowerMessage.includes('order') || lowerMessage.includes('shipping')) {
       return "I'd be happy to help you with your order! Could you please provide your order number so I can look up the details?";

@@ -255,8 +255,8 @@ export class EnhancedSupportChatbot {
     
     const lowerMessage = message.toLowerCase();
 
-    // Simulate 2-3 second LLM response time
-    await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
+    // Simulate 3-5 second LLM response time (realistic for Claude/GPT)
+    await new Promise(resolve => setTimeout(resolve, 3000 + Math.random() * 2000));
 
     // Adjust tone based on sentiment
     const empathyPrefix = this.getEmpathyPrefix(sentiment);
