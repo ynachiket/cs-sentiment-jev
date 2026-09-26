@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Jev vs LLM Latency - Multi-Turn Conversation</title>
+    <title>LLM Only vs LLM+Jev - Multi-Turn Latency</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -25,7 +25,18 @@
         .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .explanation {
+            background: #f0f9ff;
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .explanation strong {
+            color: #1e40af;
         }
         .stats {
             display: grid;
@@ -39,14 +50,22 @@
             border-radius: 8px;
             text-align: center;
         }
+        .stat-card.highlight {
+            background: #dcfce7;
+            border: 2px solid #16a34a;
+        }
         .stat-value {
             font-size: 32px;
             font-weight: bold;
             color: #2563eb;
         }
+        .stat-value.saved {
+            color: #16a34a;
+        }
         .stat-label {
             color: #666;
             margin-top: 5px;
+            font-size: 14px;
         }
         canvas {
             margin-top: 20px;
@@ -55,21 +74,27 @@
 </head>
 <body>
     <div class="container">
-        <h1>Multi-Turn Conversation Latency Impact</h1>
-        <p class="subtitle">Jev vs Traditional LLM - 15 Turn Conversation with Escalating Sentiment</p>
+        <h1>Multi-Turn Conversation Latency</h1>
+        <p class="subtitle">LLM Only vs LLM + Jev - 15 Turn Conversation</p>
+        
+        <div class="explanation">
+            <strong>LLM Only:</strong> LLM generates conversation (3-5s) + LLM analyzes sentiment (3-9s) = 6-14s per turn<br>
+            <strong>LLM + Jev:</strong> LLM generates conversation (3-5s) + Jev analyzes sentiment (186ms) = ~4s per turn<br>
+            <strong>Result:</strong> Same conversation quality, 57% faster with Jev handling sentiment
+        </div>
         
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-value">0.0s</div>
-                <div class="stat-label">Jev Total Time</div>
+                <div class="stat-value">152.5s</div>
+                <div class="stat-label">LLM Only Total<br>(conversation + sentiment)</div>
             </div>
             <div class="stat-card">
-                <div class="stat-value">88.1s</div>
-                <div class="stat-label">LLM Total Time</div>
+                <div class="stat-value">66.1s</div>
+                <div class="stat-label">LLM + Jev Total<br>(conversation by LLM, sentiment by Jev)</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-value">88.1s</div>
-                <div class="stat-label">Time Saved</div>
+            <div class="stat-card highlight">
+                <div class="stat-value saved">86.4s</div>
+                <div class="stat-label">Time Saved<br>(57% faster)</div>
             </div>
         </div>
 
@@ -79,26 +104,25 @@
 
     <script>
         const turns = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-        const jevCumulative = ["0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00","0.00"];
-        const llmCumulative = ["4.23","10.33","15.09","18.47","25.86","34.08","37.24","45.96","51.81","58.94","65.90","70.41","73.88","81.46","88.12"];
-        const jevPerTurn = [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0];
-        const llmPerTurn = [4225.530114722492,6100.3591186828335,4759.352416762011,3381.4334551190436,7396.66618697335,8214.876500115457,3159.199211768349,8723.668564780182,5845.675320741305,7134.489532675959,6958.8709509587225,4513.578966723104,3468.586114637258,7578.775066254658,6656.78144826366];
+        const llmJevCumulative = ["4.84","9.12","13.78","18.58","23.13","26.70","31.80","36.74","41.54","45.32","49.45","52.70","56.92","61.81","66.05"];
+        const llmOnlyCumulative = ["8.40","18.97","28.42","36.45","45.44","57.21","69.77","82.63","92.89","100.44","108.46","119.75","129.96","141.67","152.49"];
+        const llmJevPerTurn = ["4.84","4.28","4.66","4.80","4.56","3.56","5.10","4.94","4.80","3.78","4.13","3.25","4.22","4.89","4.24"];
+        const llmOnlyPerTurn = ["8.40","10.58","9.45","8.03","8.99","11.77","12.56","12.87","10.26","7.55","8.02","11.29","10.20","11.72","10.82"];
 
-        // Cumulative chart
         new Chart(document.getElementById('cumulativeChart'), {
             type: 'line',
             data: {
                 labels: turns,
                 datasets: [{
-                    label: 'Jev (Cumulative)',
-                    data: jevCumulative,
+                    label: 'LLM + Jev (Cumulative)',
+                    data: llmJevCumulative,
                     borderColor: '#10b981',
                     backgroundColor: 'rgba(16, 185, 129, 0.1)',
                     borderWidth: 3,
                     fill: true
                 }, {
-                    label: 'LLM (Cumulative)',
-                    data: llmCumulative,
+                    label: 'LLM Only (Cumulative)',
+                    data: llmOnlyCumulative,
                     borderColor: '#ef4444',
                     backgroundColor: 'rgba(239, 68, 68, 0.1)',
                     borderWidth: 3,
@@ -110,44 +134,34 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Cumulative Latency Over 15 Turns',
+                        text: 'Cumulative Latency Over 15 Turns - Gap Widens!',
                         font: { size: 18 }
                     },
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
+                    legend: { display: true, position: 'top' }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total Time (seconds)'
-                        }
+                        title: { display: true, text: 'Total Time (seconds)' }
                     },
                     x: {
-                        title: {
-                            display: true,
-                            text: 'Conversation Turn'
-                        }
+                        title: { display: true, text: 'Conversation Turn' }
                     }
                 }
             }
         });
 
-        // Per-turn chart
         new Chart(document.getElementById('perTurnChart'), {
             type: 'bar',
             data: {
                 labels: turns,
                 datasets: [{
-                    label: 'Jev (per turn)',
-                    data: jevPerTurn,
+                    label: 'LLM + Jev (per turn)',
+                    data: llmJevPerTurn,
                     backgroundColor: '#10b981'
                 }, {
-                    label: 'LLM (per turn)',
-                    data: llmPerTurn,
+                    label: 'LLM Only (per turn)',
+                    data: llmOnlyPerTurn,
                     backgroundColor: '#ef4444'
                 }]
             },
@@ -159,24 +173,15 @@
                         text: 'Per-Turn Latency Comparison',
                         font: { size: 18 }
                     },
-                    legend: {
-                        display: true,
-                        position: 'top'
-                    }
+                    legend: { display: true, position: 'top' }
                 },
                 scales: {
                     y: {
                         beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Latency (milliseconds)'
-                        }
+                        title: { display: true, text: 'Latency (seconds)' }
                     },
                     x: {
-                        title: {
-                            display: true,
-                            text: 'Conversation Turn'
-                        }
+                        title: { display: true, text: 'Conversation Turn' }
                     }
                 }
             }

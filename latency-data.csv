@@ -1,16 +1,16 @@
-Turn,Message,Sentiment,Jev_Latency_ms,LLM_Latency_ms,Jev_Cumulative_s,LLM_Cumulative_s,Time_Saved_s
-1,"Hi, I'd like to check on my order",neutral,1,4226,0.00,4.23,4.22
-2,"I ordered this 5 days ago",neutral,0,6100,0.00,10.33,10.32
-3,"I paid for express shipping",neutral,0,4759,0.00,15.09,15.08
-4,"This is taking too long",neutral,0,3381,0.00,18.47,18.47
-5,"I'm getting frustrated with this",frustrated,0,7397,0.00,25.86,25.86
-6,"This is ridiculous",frustrated,0,8215,0.00,34.08,34.08
-7,"Why is this taking so long?",neutral,0,3159,0.00,37.24,37.24
-8,"I'm very disappointed",neutral,0,8724,0.00,45.96,45.96
-9,"This is unacceptable",angry,0,5846,0.00,51.81,51.81
-10,"I want a refund",neutral,0,7134,0.00,58.94,58.94
-11,"Your service is terrible",negative,0,6959,0.00,65.90,65.90
-12,"I'm extremely unhappy",neutral,1,4514,0.00,70.41,70.41
-13,"This is the worst experience",negative,0,3469,0.00,73.88,73.88
-14,"I demand to speak to a manager",neutral,0,7579,0.00,81.46,81.46
-15,"I want to cancel everything",neutral,0,6657,0.00,88.12,88.12
+Turn,Message,Sentiment,LLM_Jev_s,LLM_Only_s,LLM_Jev_Cumulative_s,LLM_Only_Cumulative_s,Time_Saved_s
+1,"Hi, I'd like to check on my order",neutral,4.84,8.40,4.84,8.40,3.56
+2,"I ordered this 5 days ago",neutral,4.28,10.58,9.12,18.97,9.85
+3,"I paid for express shipping",neutral,4.66,9.45,13.78,28.42,14.64
+4,"This is taking too long",neutral,4.80,8.03,18.58,36.45,17.88
+5,"I'm getting frustrated with this",frustrated,4.56,8.99,23.13,45.44,22.30
+6,"This is ridiculous",frustrated,3.56,11.77,26.70,57.21,30.51
+7,"Why is this taking so long?",neutral,5.10,12.56,31.80,69.77,37.97
+8,"I'm very disappointed",neutral,4.94,12.87,36.74,82.63,45.89
+9,"This is unacceptable",angry,4.80,10.26,41.54,92.89,51.35
+10,"I want a refund",neutral,3.78,7.55,45.32,100.44,55.12
+11,"Your service is terrible",negative,4.13,8.02,49.45,108.46,59.01
+12,"I'm extremely unhappy",neutral,3.25,11.29,52.70,119.75,67.05
+13,"This is the worst experience",negative,4.22,10.20,56.92,129.96,73.04
+14,"I demand to speak to a manager",neutral,4.89,11.72,61.81,141.67,79.86
+15,"I want to cancel everything",neutral,4.24,10.82,66.05,152.49,86.44
